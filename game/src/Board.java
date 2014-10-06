@@ -19,26 +19,34 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Board extends JPanel {
+	
 	JPanel board = new JPanel();
-	ImageIcon ii = new ImageIcon("images/icon.png");
-	Image image = ii.getImage();
-	String[] map = new Map("1").getMap();
+	String level = "1";
+	String[] mapTerrain = new Map(level).getMapTerrain();
+	String[] mapUnits = new Map(level).getMapUnits();
+	
 	public Board () {
-		for (String strr : map) {
-			System.out.println(strr);
-		}
+		
 	}
 
+	//PAINTING METHOD
 	@Override
 	public void paintComponent(Graphics g) {
-		for (int i = 0; i < 25; i++) {
-			for (int j = 0; j < 15; j++) {
-				//draw terrain
-				g.drawImage(new ImageIcon("images/0-terrain.png").getImage(), i*40, j*40, null);
+		for (int col = 0; col < 25; col++) {
+			for (int row = 0; row < 15; row++) {
+				//draw background
+				g.drawImage(new ImageIcon("images/o-terrain.png").getImage(), col*40, row*40, null);
 				
-//				draw path
-				g.drawImage(new ImageIcon("images/".concat(""+map[j].charAt(i)).concat("-terrain.png")).getImage(), 
-						i*40, j*40, null);
+				//draw road
+				g.drawImage(new ImageIcon("images/".concat(""+mapTerrain[row].charAt(col)).concat("-terrain.png")).getImage(), 
+						col*40, row*40, null);
+				
+				//draw gold - this is temporary just to see the graphics
+				//draw gold - actual painting should be made from the object, when created
+				if (mapUnits[row].charAt(col) == '1') {
+					g.drawImage(new ImageIcon("images/g-terrain.png").getImage(), 
+							col*40, row*40, null);
+				}
 			}
 		}
     }
