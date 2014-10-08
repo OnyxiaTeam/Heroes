@@ -13,5 +13,4 @@ public class BattleMap extends Terrain {
   public BattleMap(ArrayList<IElements> elements, Player p1, Player p2, Player current) {
     super(elements, p1, p2, current);
   }
-
 }
