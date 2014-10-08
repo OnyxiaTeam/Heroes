@@ -1,5 +1,5 @@
 package elements;
 
-public interface ICollectable {
+public interface ICollectable extends IElements {
 
 }

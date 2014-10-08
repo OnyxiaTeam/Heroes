@@ -1,10 +1,5 @@
 package elements;
 
-public interface IGood {
+public interface IGood extends IElements {
   
-  public int getAmount();
-  
-  public void setAmount(int amount);
-  
-  public void increaseAmount(int amount);
 }

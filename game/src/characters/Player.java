@@ -13,10 +13,11 @@ public class Player {
   private ArrayList<IGood> resources;
 
   private int turns;
-  private static final int INITIAL_TURNS = 50;
+  public static final int INITIAL_TURNS = 50;
+  public static final int INITIAL_VILLAGES = 6;
+  public static final int INITIAL_GOLD = 1000;
 
-  public Player(ArrayList<IConquerable> villages, IGood gold) {
-    this.villages = villages;
+  public Player(IGood gold) {
     this.resources.add(gold);
   }
 
@@ -105,6 +106,10 @@ public class Player {
    */
   public void conquerVillage(IConquerable village) {
     village.conquer(this);
+    this.setVillage(village);
+  }
+  
+  public void setVillage(IConquerable village) {
     this.getVillages().add(village);
   }
   
