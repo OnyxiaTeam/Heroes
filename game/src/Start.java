@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -28,7 +29,7 @@ public class Start extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			if (player1.getText().length() > 0 && player2.getText().length() > 0) {
 				getContentPane().removeAll();
-				getContentPane().add(game);
+				getContentPane().add(game, BorderLayout.CENTER);
 				repaint();
 				printAll(getGraphics());
 			}
@@ -36,6 +37,7 @@ public class Start extends JFrame{
 	};
 	
 	public Start() {
+		getContentPane().setLayout(new BorderLayout());
 		addToHomeScreen();
 		setLocation(100,100);
         pack();
@@ -80,7 +82,7 @@ public class Start extends JFrame{
 		player2.setFont(font);
 		player2.setBounds(400, 210, 400, 50);
 		hs.add(player2);
-				
+		
 		startGame.addActionListener(startGameAL);
 		startGame.setFont(font);
 		startGame.setBounds(400, 270, 400, 60);

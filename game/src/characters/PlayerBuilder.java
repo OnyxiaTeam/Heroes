@@ -1,5 +1,9 @@
 package characters;
 
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
 import elements.Gold;
 import elements.IGood;
 import elements.Village;
@@ -8,6 +12,9 @@ import elements.VillageBuilder;
 public class PlayerBuilder {
   
   private Player player;
+  public int x;
+  public int y;
+  private ImageIcon img = new ImageIcon("images/p1");
 
   public PlayerBuilder() { }
   
@@ -53,5 +60,6 @@ public class PlayerBuilder {
   public Player get() {
     return this.player;
   }
+
 
 }
