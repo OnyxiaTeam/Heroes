@@ -1,37 +1,18 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.List;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import characters.Player;
-import characters.PlayerBuilder;
-import elements.IGood;
 
 public class Board extends JPanel implements ActionListener {
 	
 	JPanel board = new JPanel();
-	String level = "1";
-	String[] mapTerrain = new Map(level).getMapTerrain();
+	static String level = "1";
+	static String[] mapTerrain = new Map(level).getMapTerrain();
 	String[] mapUnits = new Map(level).getMapUnits();
 	public int SCALE = 40;
 	public int p1X = 0;
@@ -40,13 +21,14 @@ public class Board extends JPanel implements ActionListener {
 	public int p2Y = 14;
 	Timer timer;
     int currentPlayer = 1;
-	JButton endOfTurnButton = new JButton(new ImageIcon("images/end-turn-button.png"));
+    ImageIcon buttonBg = new ImageIcon("images/end-turn-button.png");
+	ImageIcon buttonHover = new ImageIcon("images/end-turn-button-hover.png");
+	JButton endOfTurnButton = new JButton(buttonBg);
 	
 	public Board () {
 		setLayout(null);
 		addKeyListener(new TAdapter());
 		setFocusable(true);
-		isFocusable();
 		setDoubleBuffered(true);
 		
 		//set menu up
@@ -65,6 +47,15 @@ public class Board extends JPanel implements ActionListener {
 		endOfTurnButton.setBorder(null);
 		endOfTurnButton.setBackground(null);
 		endOfTurnButton.setBounds(1000, 550, 200, 50);
+		endOfTurnButton.setFocusable(false);
+		endOfTurnButton.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				endOfTurnButton.setIcon(buttonHover);
+			}
+			public void mouseExited(MouseEvent evt) {
+				endOfTurnButton.setIcon(buttonBg);
+			}
+		});
 		add(endOfTurnButton);
 		
 		timer = new Timer(5, this);
@@ -73,19 +64,35 @@ public class Board extends JPanel implements ActionListener {
 	
 	private class TAdapter extends KeyAdapter {
         public void keyPressed(KeyEvent keyEvent) {
-    		if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT) {
-    	        p1X -= 1;
-    	    }
-    	    if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
-    	        p1X += 1;
-    	    }
-    	    if(keyEvent.getKeyCode() == KeyEvent.VK_UP) {
-    	        p1Y += 1;
-    	    }
-    	    if(keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
-    	        p1Y -= 1;
-    	    }
-            System.out.println("SOMETHING");
+        	if (currentPlayer == 1) {
+	    		if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT && isFree(p1X-1, p1Y)) {
+	    	        p1X -= 1;
+	    	    }
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT && isFree(p1X+1, p1Y)) {
+	    	        p1X += 1;
+	    	    }
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_UP && isFree(p1X, p1Y-1)) {
+	    	        p1Y -= 1;
+	    	    }
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_DOWN && isFree(p1X, p1Y+1)) {
+	    	        p1Y += 1;
+	    	    }
+        	}
+        	else {
+        		if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT && isFree(p2X-1, p2Y)) {
+	    	        p2X -= 1;
+	    	    }
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT && isFree(p2X+1, p2Y)) {
+	    	        p2X += 1;
+	    	    }
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_UP && isFree(p2X, p2Y-1)) {
+	    	        p2Y -= 1;
+	    	    }
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_DOWN && isFree(p2X, p2Y+1)) {
+	    	        p2Y += 1;
+	    	    }
+	    	    System.out.println("asd");
+        	}
     	}
     }
 	
@@ -114,4 +121,15 @@ public class Board extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		repaint();
 	}
+	
+	public static boolean isFree(int x, int y) {
+		if (x >= 0 && y >= 0) {
+			if (mapTerrain[y].charAt(x) != 't') {
+				return true;
+			}
+		}
+			
+		return false;
+	}
+	
 }
