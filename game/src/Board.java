@@ -34,8 +34,6 @@ public class Board extends JPanel implements ActionListener {
 	String[] mapTerrain = new Map(level).getMapTerrain();
 	String[] mapUnits = new Map(level).getMapUnits();
 	public int SCALE = 40;
-	public boolean asdf = false;
-	public Integer counter = 0;
 	public int p1X = 0;
 	public int p1Y = 0;
 	public int p2X = 24;
@@ -46,7 +44,10 @@ public class Board extends JPanel implements ActionListener {
 	
 	public Board () {
 		setLayout(null);
+		addKeyListener(new TAdapter());
+		setFocusable(true);
 		isFocusable();
+		setDoubleBuffered(true);
 		
 		//set menu up
 		endOfTurnButton.addActionListener(new ActionListener() {
@@ -64,27 +65,29 @@ public class Board extends JPanel implements ActionListener {
 		endOfTurnButton.setBorder(null);
 		endOfTurnButton.setBackground(null);
 		endOfTurnButton.setBounds(1000, 550, 200, 50);
-		
 		add(endOfTurnButton);
 		
 		timer = new Timer(5, this);
         timer.start();
 	}
-	public void keyPressed(KeyEvent keyEvent) {
-		if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT) {
-	        p1X -= 1;
-	    }
-	    if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
-	        p1X += 1;
-	    }
-	    if(keyEvent.getKeyCode() == KeyEvent.VK_UP) {
-	        p1Y += 1;
-	    }
-	    if(keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
-	        p1Y -= 1;
-	    }
-        System.out.println("SOMETHING");
-	}
+	
+	private class TAdapter extends KeyAdapter {
+        public void keyPressed(KeyEvent keyEvent) {
+    		if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT) {
+    	        p1X -= 1;
+    	    }
+    	    if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
+    	        p1X += 1;
+    	    }
+    	    if(keyEvent.getKeyCode() == KeyEvent.VK_UP) {
+    	        p1Y += 1;
+    	    }
+    	    if(keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
+    	        p1Y -= 1;
+    	    }
+            System.out.println("SOMETHING");
+    	}
+    }
 	
 	//PAINTING BACKGROUND
 	@Override
@@ -102,12 +105,10 @@ public class Board extends JPanel implements ActionListener {
 		//draw menu background
 		g.drawImage(new ImageIcon("images/menu-bg.png").getImage(), 1000, 0, null);
 		
-		g.drawImage(new ImageIcon("images/p1.png").getImage(), p1X*SCALE, p1Y*SCALE, this);
-		
+		g.drawImage(new ImageIcon("images/p1.png").getImage(), p1X*SCALE, p1Y*SCALE, this);	
 		g.drawImage(new ImageIcon("images/p2.png").getImage(), p2X*SCALE, p2Y*SCALE, this);
 		
     }
-
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
