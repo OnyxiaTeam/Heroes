@@ -24,6 +24,7 @@ public class Board extends JPanel {
 	String level = "1";
 	String[] mapTerrain = new Map(level).getMapTerrain();
 	String[] mapUnits = new Map(level).getMapUnits();
+	public int SCALE = 40;
 	
 	public Board () {
 		
@@ -35,17 +36,17 @@ public class Board extends JPanel {
 		for (int col = 0; col < 25; col++) {
 			for (int row = 0; row < 15; row++) {
 				//draw background
-				g.drawImage(new ImageIcon("images/o-terrain.png").getImage(), col*40, row*40, null);
+				g.drawImage(new ImageIcon("images/o-terrain.png").getImage(), col*SCALE, row*SCALE, null);
 				
 				//draw road
 				g.drawImage(new ImageIcon("images/".concat(""+mapTerrain[row].charAt(col)).concat("-terrain.png")).getImage(), 
-						col*40, row*40, null);
+						col*SCALE, row*SCALE, null);
 				
 				//draw gold - this is temporary just to see the graphics
 				//draw gold - actual painting should be made from the object, when created
 				if (mapUnits[row].charAt(col) == '1') {
 					g.drawImage(new ImageIcon("images/g-terrain.png").getImage(), 
-							col*40, row*40, null);
+							col*SCALE, row*SCALE, null);
 				}
 			}
 		}
