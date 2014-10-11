@@ -58,7 +58,7 @@ public class Board extends JPanel implements ActionListener {
 		});
 		add(endOfTurnButton);
 		
-		timer = new Timer(5, this);
+		timer = new Timer(10, this);
         timer.start();
 	}
 	
@@ -91,7 +91,6 @@ public class Board extends JPanel implements ActionListener {
 	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_DOWN && isFree(p2X, p2Y+1)) {
 	    	        p2Y += 1;
 	    	    }
-	    	    System.out.println("asd");
         	}
     	}
     }
@@ -123,7 +122,7 @@ public class Board extends JPanel implements ActionListener {
 	}
 	
 	public static boolean isFree(int x, int y) {
-		if (x >= 0 && y >= 0) {
+		if (x >= 0 && y >= 0 && x <= 24 && y <= 14) {
 			if (mapTerrain[y].charAt(x) != 't') {
 				return true;
 			}

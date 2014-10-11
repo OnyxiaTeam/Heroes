@@ -1,8 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -11,11 +13,13 @@ import javax.swing.JTextField;
 
 
 public class HSDialog extends JDialog {
+
+	ImageIcon background = new ImageIcon("images/hs-bg.png");
 	
 	public HSDialog(final JFrame parent, boolean modal) {
 		super(parent, modal);
-		JButton asdf = new JButton("sadasdadssadsad");
-		asdf.addActionListener(new ActionListener() {
+		JButton startButton = new JButton("START GAME");
+		startButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -23,13 +27,19 @@ public class HSDialog extends JDialog {
                 setVisible(false);
 			}
 		});
-		asdf.setBounds(10, 10, 20, 20);
-		add(asdf);
+		add(startButton);
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(1206, 629));
 		
 		pack();
 		setLocation(100,100);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+	}
+	@Override
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paint(g);
+
+		g.drawImage(background.getImage(), 0, 0, null);
 	}
 }
