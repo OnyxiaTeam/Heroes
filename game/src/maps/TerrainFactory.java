@@ -1,37 +1,30 @@
 package maps;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.sun.javafx.collections.MappingChange.Map;
 
 import characters.Player;
 import elements.IElements;
 
-public class TerrainFactory {
+public final class TerrainFactory {
 
-    private static ArrayList<IElements> elements;
-    private static Player p1;
-    private static Player p2;
-    private static Player current;
-	private static int terrainType;
-	
-    public TerrainFactory(ArrayList<IElements> elements,Player p1,Player p2,Player current,int terrainType ){
-		TerrainFactory.elements = elements;
-		TerrainFactory.p1 = p1;
-		TerrainFactory.p2 = p2;
-		TerrainFactory.current = current;
-		TerrainFactory.terrainType = terrainType;
-	}
-	
-	
-	public static Terrain chooseMap(int terrainType){
-		switch(TerrainFactory.terrainType){
-		case 1 :
-			return new BattleMap(elements, p1, p2, current);
-		case 2:
-			return new GlobalMap(elements, p1, p2, current);
-		case 3:
-			return new OwnVillageMap(elements, p1, p2, current);
+	private TerrainFactory() {
+	};
+
+	public static Terrain Create(Player p1, Player p2, int terrainId) {
+		switch (terrainId) {
+		case BattleMap.id:
+			return new BattleMap(p1, p2);
+		case GlobalMap.id:
+			return new GlobalMap(p1, p2);
+		case OwnVillageMap.id:
+			return new OwnVillageMap(p1, p2);
 		}
-		throw new IllegalArgumentException("The terrain type " + terrainType + " is not recognized.");
-	}
-}
+		throw new IllegalArgumentException("The terrain type " + terrainId
+				+ " is not recognized.");
 
+	}
+
+}
