@@ -1,6 +1,8 @@
 package characters;
 
+
 import java.util.ArrayList;
+import maps.*;
 
 import elements.IConquerable;
 import elements.IGood;
@@ -16,9 +18,13 @@ public class Player {
   public static final int INITIAL_TURNS = 50;
   public static final int INITIAL_VILLAGES = 6;
   public static final int INITIAL_GOLD = 1000;
-
-  public Player(IGood gold) {
+  
+  private Terrain currentTerrain;
+  
+  
+  public Player(IGood gold,Terrain currentTerrain) {
     this.resources.add(gold);
+    this.currentTerrain=currentTerrain;
   }
 
   /**
@@ -139,7 +145,10 @@ public class Player {
    * Decrements a turn
    */
   public void decrementTurn() {
-    this.turns -= 1;
+	  if(currentTerrain instanceof BattleMap){
+		  this.turns -= 1;
+	  }
+    
   }
 
   public boolean hasTurnsLeft() {
@@ -204,4 +213,5 @@ public class Player {
   private void killUnit(IWarrior unit) {
     this.getUnits().removeIf(t -> t.getClass() == unit.getClass());
   }
+    
 }
