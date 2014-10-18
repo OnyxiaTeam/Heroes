@@ -10,9 +10,9 @@ import units.Units;
 
 public class Player {
 
-  private ArrayList<IWarrior> units;
-  private ArrayList<IConquerable> villages;
-  private ArrayList<IGood> resources;
+  private ArrayList<IWarrior> units = new ArrayList<IWarrior>();
+  private ArrayList<IConquerable> villages = new ArrayList<IConquerable>();
+  private ArrayList<IGood> resources = new ArrayList<IGood>();
 
   private int turns;
   public static final int INITIAL_TURNS = 50;
