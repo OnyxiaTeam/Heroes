@@ -7,4 +7,5 @@ public interface IWarrior {
   public void setAmount(int amount);
   
   public void increaseAmount(int amount);
+  
 }
