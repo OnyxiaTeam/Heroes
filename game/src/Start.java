@@ -10,7 +10,7 @@ public class Start extends JFrame {
 	public Start() {
 		addToHomeScreen();
 		add(new Board());
-		setLocation(100,100);
+		setLocation(100, 100);
         setTitle("START");
         setSize(WIDTH, HEIGHT);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));

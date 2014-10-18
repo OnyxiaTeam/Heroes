@@ -27,6 +27,7 @@ public class HSDialog extends JDialog {
                 setVisible(false);
 			}
 		});
+		startButton.setBounds(20,20,150,40);
 		add(startButton);
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(1206, 629));
