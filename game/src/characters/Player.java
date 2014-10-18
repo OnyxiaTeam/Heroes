@@ -2,9 +2,11 @@ package characters;
 
 import java.util.ArrayList;
 
+import elements.Gold;
 import elements.IConquerable;
 import elements.IGood;
 import units.IWarrior;
+import units.Units;
 
 public class Player {
 
@@ -182,6 +184,14 @@ public class Player {
     this.getUnits().add(unit);
   }
   
+  private IWarrior getUnitFromType(IWarrior type) {
+    return this.getUnits()
+    .stream()
+    .filter(u -> u.getClass() == type.getClass())
+    .findFirst()
+    .get();
+  }
+  
   private void increaseUnit(IWarrior unit, int amount) {
     this.getUnits().
       stream().
@@ -195,13 +205,27 @@ public class Player {
   }
   
   private boolean isUnitDead(IWarrior unit) {
-    return this.getUnits().
-      stream().
-      filter(u -> u.getClass() == unit.getClass()).
-      anyMatch(u -> u.getAmount() <= 0);
+    return this.getUnitFromType(unit).getAmount() <= 0;
   }
   
-  private void killUnit(IWarrior unit) {
+  public void killUnit(IWarrior unit) {
     this.getUnits().removeIf(t -> t.getClass() == unit.getClass());
+  }
+  
+  public boolean hasAliveUnits() {
+    return this.getUnits()
+      .stream()
+      .filter(u -> u.getAmount() > 0)
+      .count() > 0;
+  }
+  
+  public void loseBattle() {
+    IGood gold = this.getResources()
+      .stream()
+      .filter(r -> r.getClass() == new Gold().getClass())
+      .findFirst()
+      .get();
+    
+    gold.setAmount(gold.getAmount() / 2);
   }
 }

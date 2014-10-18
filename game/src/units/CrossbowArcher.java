@@ -1,13 +1,21 @@
 package units;
 
+import characters.Player;
+
 public class CrossbowArcher extends Ranged {
 
-  protected int attack = 50;
-  protected int defense = 300;
+  public static final int ID = 1;
+  
+  protected final int id = 1;
+  
+  protected int stackAttack = 50;
+  protected int stackDefense = 300;
   protected int range = 3;
   
-  public CrossbowArcher() {
-    // TODO Auto-generated constructor stub
+  protected final int defense = 300;
+  
+  public CrossbowArcher(Player owner, int amount) {
+    super(owner, amount);
   }
 
 }
