@@ -11,7 +11,10 @@ public class BattleMap extends Terrain {
   public static final int id = 1;
   private Player p1;
   private Player p2;
-
+  
+  private boolean cantUseShop=true;
+  private boolean noConfirmationDialogue=true;
+    
   public BattleMap(Player p1, Player p2) {
     super(p1, p2);
     this.p1 = p1;
@@ -37,7 +40,7 @@ public class BattleMap extends Terrain {
   public boolean moveBottom(Object currentPlayer) {
     return this.move(0, -1, currentPlayer);
   }
-
+  
   @Override
   protected boolean move(int col, int row, Object currentPlayer) {
     Position playerPosition = this.map.entrySet().stream()

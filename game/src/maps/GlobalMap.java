@@ -9,6 +9,9 @@ import elements.IElements;
 
 public class GlobalMap extends Terrain {
 
+  private boolean cantUseShop=false;
+  private boolean noConfirmationDialogue=false;
+	
   public static final int id = 2;
 
   public GlobalMap(Player p1, Player p2) {

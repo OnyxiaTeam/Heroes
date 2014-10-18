@@ -7,7 +7,7 @@ import characters.Player;
 import elements.IElements;
 
 public abstract class Terrain {
-
+		  
   protected HashMap<Position, Object> map = new HashMap<Position, Object>();
   public static final int MAP_X = 25;
   public static final int MAP_Y = 15;
