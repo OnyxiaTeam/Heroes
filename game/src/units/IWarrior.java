@@ -8,4 +8,9 @@ public interface IWarrior {
   
   public void increaseAmount(int amount);
   
+  public void hit(Units u);
+  
+  public void absorbeHit(int impact);
+  
+  public int getId();
 }

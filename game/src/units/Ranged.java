@@ -1,11 +1,13 @@
 package units;
 
+import characters.Player;
+
 public abstract class Ranged extends Units {
   
   protected int range;
-
-  public Ranged() {
-    // TODO Auto-generated constructor stub
+  
+  public Ranged(Player owner, int amount) {
+    super(owner, amount);
   }
   
   public int getRange() {
@@ -14,5 +16,9 @@ public abstract class Ranged extends Units {
 
   public void hit(Units unit) {
     unit.absorbeHit(this.getAttack());
+  }
+  
+  public void absorbeHit(int impact) {
+    super.absorbeHit(impact);
   }
 }

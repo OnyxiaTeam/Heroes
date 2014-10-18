@@ -33,7 +33,7 @@ public class PlayerBuilder {
   public static IGood createGold(int amount) {
     IGood gold = new Gold();
     gold.setAmount(amount);
-    
+
     return gold;
   }
   
