@@ -136,6 +136,10 @@ public class Player {
     return this.getVillages().isEmpty();
   }
   
+  public int getTurns() {
+    return this.turns;
+  }
+  
   /**
    * Sets player turns to the default configuration
    */
