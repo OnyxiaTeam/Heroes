@@ -2,8 +2,8 @@ package characters;
 
 
 import java.util.ArrayList;
-import maps.*;
 
+import maps.*;
 import elements.Gold;
 import elements.IConquerable;
 import elements.IGood;
@@ -175,9 +175,19 @@ public class Player {
       forEach(r -> r.increaseAmount(amount));
   }
   
-  private void decreaseResource(IGood resource, int amount) {
-    amount *= -1;
-    this.increaseResource(resource, amount);
+  public void decreaseResource(IGood resource, int amount) throws Exception {
+   
+    for(IGood res : this.resources) {
+    	if(res.getClass()==resource.getClass()){
+    		if(amount<res.getAmount()){
+    			 amount *= -1;
+    			 this.increaseResource(resource, amount);
+    		}
+    	}
+    }
+    
+   throw new Exception();
+    
   }
   
   private boolean hasResource(IGood resource) {
