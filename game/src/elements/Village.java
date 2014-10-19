@@ -1,10 +1,15 @@
 package elements;
 
+import java.util.ArrayList;
+
+import units.IWarrior;
 import characters.Player;
 
 public class Village implements IConquerable {
   
   private Player owner;
+  
+  private ArrayList<IWarrior> units = new ArrayList<IWarrior>();
   
   private int goldIncome;
   
@@ -32,6 +37,14 @@ public class Village implements IConquerable {
   
   public int getGoldIncome() {
     return this.goldIncome;
+  }
+  
+  public ArrayList<IWarrior> getUnits() {
+    return this.units;
+  }
+  
+  public void addUnit(IWarrior unit) {
+    this.units.add(unit);
   }
   
 }

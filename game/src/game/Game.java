@@ -4,13 +4,17 @@ import java.awt.Menu;
 import java.util.List;
 
 import characters.Player;
+import maps.GlobalMap;
 import maps.Terrain;
+import maps.TerrainFactory;
 
 public class Game {
 	  private Player playerOne;
 	  private Player playerTwo;
 	 
 	  private Player currentPlayer;
+	  
+	  private Terrain currentMap;
 
 	  private List<Terrain> maps;
 
@@ -23,14 +27,16 @@ public class Game {
 	  
 	  private Player[] playerList = {playerOne, playerTwo};
 
-	  private Game(Player playerOne, Player playerTwo) {
+	  public Game(Player playerOne, Player playerTwo) {
 		  this.playerOne = playerOne;
 		  this.playerTwo = playerTwo;
+		  
+		  this.currentMap = TerrainFactory.Create(playerOne, playerTwo, GlobalMap.id);
+		  
+		  this.playerOne.changeMap(this.currentMap);
+		  this.playerTwo.changeMap(this.currentMap);
 	  }
 
-	//  public static Game getInstance() {
-		  
-	//  }
 
 	  public void run() {
 		  // event loop maybe?
@@ -44,9 +50,16 @@ public class Game {
 		  
 	 // }
 
-	 // public Terrain getCurrentField() {
-		
-//	  }
+	  public Terrain getCurrentField() {
+	    return this.currentMap;
+	  }
+	  
+	  public void changeField(int id) {
+	    Terrain map = TerrainFactory.Create(this.playerOne, this.playerTwo, id);
+	    this.currentMap = map;
+	    this.playerOne.changeMap(map);
+	    this.playerTwo.changeMap(map);
+	  }
 
 	  public Player getCurrentPlayer()  // determines the current player on seat
 	  {

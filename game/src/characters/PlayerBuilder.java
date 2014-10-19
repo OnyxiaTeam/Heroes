@@ -4,6 +4,9 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import maps.GlobalMap;
+import maps.Terrain;
+import maps.TerrainFactory;
 import elements.Gold;
 import elements.IGood;
 import elements.Village;
@@ -15,7 +18,7 @@ public class PlayerBuilder {
   public int x;
   public int y;
   private ImageIcon img = new ImageIcon("images/p1");
-
+ 
   public PlayerBuilder() { }
   
   public PlayerBuilder create() {

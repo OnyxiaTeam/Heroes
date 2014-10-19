@@ -24,9 +24,16 @@ public class Player {
   private Terrain currentTerrain;
   
   
-  public Player(IGood gold,Terrain currentTerrain) {
+  public Player(IGood gold) {
     this.resources.add(gold);
-    this.currentTerrain=currentTerrain;
+  }
+  
+  public Terrain getCurrentMap() {
+    return this.currentTerrain;
+  }
+  
+  public void changeMap(Terrain map) {
+    this.currentTerrain = map;
   }
 
   /**
