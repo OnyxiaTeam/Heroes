@@ -26,11 +26,11 @@ public class PlayerMenu {
 	
 	public void buy(Player p, int unitId){
 		int price = this.items.get(unitId);
-		IGood gold = new Gold();
 		try {
-			p.decreaseResource(gold, price);
+			p.decreaseResource(new Gold(), price);
+			
+			UnitsFactory.create(p, 1, unitId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}	
