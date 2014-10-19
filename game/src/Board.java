@@ -50,8 +50,17 @@ public class Board extends JPanel implements ActionListener {
 		this.currentPlayer = attacker;
 		this.map = TerrainFactory.Create(attacker, defender, GlobalMap.id);
 		turns = 5;
+		 map.setObjectOnMap(new Position(0,0),attacker);
+		 map.setObjectOnMap(new Position(0,0),attacker);
+		 
 		
-		System.out.println("adsfs");
+		for (int col = 0; col < 25; col++) {
+			for (int row = 0; row < 15; row++) {
+				Position currentPos = new Position(col,row);
+				char currentObj = mapTerrain[row].charAt(col);	
+				map.setObjectOnMap(currentPos,generateObj(currentObj));
+			}
+				}
 		
 		setLayout(null);
 		addKeyListener(new TAdapter());
@@ -97,25 +106,25 @@ public class Board extends JPanel implements ActionListener {
 	private class TAdapter extends KeyAdapter {
         public void keyPressed(KeyEvent keyEvent) {
         	if (currentPlayer == attacker) {
-	    		if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT && isFree(p1X-1, p1Y)) {
+	    		if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT) {
 	    	        if(map.moveLeft(currentPlayer)){
 	    	        	p1X -= 1;
 		    	        calculateTurns();
 	    	        }
 	    	    }
-	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT && isFree(p1X+1, p1Y)) {
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
 	    	        if(map.moveRight(currentPlayer)){
 	    	        	p1X += 1;
 		    	        calculateTurns();
 	    	        }
 	    	    }
-	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_UP && isFree(p1X, p1Y-1)) {
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_UP) {
 	    	        if(map.moveTop(currentPlayer)){
 	    	        	p1Y -= 1;
 		    	        calculateTurns();
 	    	        }
 	    	    }
-	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_DOWN && isFree(p1X, p1Y+1)) {
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
 	    	        if(map.moveBottom(currentPlayer)){
 	    	        	p1Y += 1;
 		    	        calculateTurns();
@@ -123,26 +132,26 @@ public class Board extends JPanel implements ActionListener {
 	    	    }
         	}
         	else {
-        		if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT && isFree(p2X-1, p2Y)) {
+        		if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT) {
 	    	        if(map.moveLeft(currentPlayer)){
 	    	        	p2X -= 1;
 		    	        calculateTurns();
 	    	        }
 	    	    }
-	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT && isFree(p2X+1, p2Y)) {
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
 	    	        if(map.moveRight(currentPlayer)){
 	    	        	p2X += 1;
 		    	        calculateTurns();
 	    	        }
 	    	    }
-	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_UP && isFree(p2X, p2Y-1)) {
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_UP) {
 	    	        if(map.moveTop(currentPlayer)){
 	    	        	p2Y -= 1;
 		    	        calculateTurns();
 	    	        }
 	    	    }
-	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_DOWN && isFree(p2X, p2Y+1)) {
-	    	        if(map.moveTop(currentPlayer)){
+	    	    if(keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
+	    	        if(map.moveBottom(currentPlayer)){
 	    	        	p2Y += 1;
 		    	        calculateTurns();
 	    	        }
@@ -156,10 +165,6 @@ public class Board extends JPanel implements ActionListener {
 	public void paintComponent(Graphics g) {
 		for (int col = 0; col < 25; col++) {
 			for (int row = 0; row < 15; row++) {
-				Position currentPos = new Position(col*SCALE,row*SCALE);
-				char currentObj = mapTerrain[row].charAt(col);	
-				map.setObjectOnMap(currentPos,generateObj(currentObj));
-				
 				//draw background
 				g.drawImage(new ImageIcon("images/o-terrain.png").getImage(), col*SCALE,row*SCALE, null);
 				
