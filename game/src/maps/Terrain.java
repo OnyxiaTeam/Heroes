@@ -24,6 +24,10 @@ public abstract class Terrain {
   public abstract boolean moveTop(Object element);
   public abstract boolean moveBottom(Object element);
   
+  public void setObjectOnMap(Position pos, Object obj) {
+	  this.map.put(pos, obj);
+  }
+  
   public boolean isInRange(int col, int row) {
     if (isInCol(col) && isInRow(row)) {
       return true;
