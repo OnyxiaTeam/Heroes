@@ -47,11 +47,19 @@ public class BattleMap extends Terrain {
         .filter(t -> t.getValue().equals(currentPlayer)).findFirst().get()
         .getKey();
     if (isInRange(playerPosition.getX() + col, playerPosition.getY() + row)) {
-      this.map.put(playerPosition, new EmptyElement());
-      Position newPlayerPosition = new Position(playerPosition.getX() + col,
-          playerPosition.getY() + row);
-      this.map.put(newPlayerPosition, currentPlayer);
-      return true;
+      Position pos = new Position(playerPosition.getX()+col, playerPosition.getY()+row);
+      Object TerrainPiece  = this.map.get(pos);
+        
+        if(TerrainPiece instanceof EmptyElement){
+          
+          this.map.put(playerPosition, new EmptyElement());
+          Position newPlayerPosition = new Position(playerPosition.getX() + col,
+              playerPosition.getY() + row);
+          this.map.put(newPlayerPosition, currentPlayer);
+          return true;
+        }else{
+          return false;
+        }
     }
     return false;
   }

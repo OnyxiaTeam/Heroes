@@ -27,7 +27,13 @@ public abstract class Terrain {
   public void setObjectOnMap(Position pos, Object obj) {
 	  this.map.put(pos, obj);
   }
-  
+   public void printMap(){
+    for(Position name: this.map.keySet()){
+      String key = name.getX()+" - "+name.getY();
+      String value = this.map.get(name).toString();
+      System.out.println(key + " :  " + value);
+    }
+   }
   public boolean isInRange(int col, int row) {
     if (isInCol(col) && isInRow(row)) {
       return true;
@@ -38,7 +44,7 @@ public abstract class Terrain {
 
   public boolean isInCol(int col) {
 
-    if (col >= 0 && col < Terrain.MAP_X) {
+    if (col >= 0 && col <= Terrain.MAP_X) {
       return true;
     } else {
       return false;
@@ -48,11 +54,10 @@ public abstract class Terrain {
 
   public boolean isInRow(int row) {
 
-    if (row >= 0 && row < Terrain.MAP_Y) {
+    if (row >= 0 && row <= Terrain.MAP_Y) {
       return true;
     } else {
       return false;
-
     }
   }
 

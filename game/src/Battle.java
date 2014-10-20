@@ -15,7 +15,9 @@ public class Battle {
   
   private boolean isFinished;
   
-  public Battle(Player attacker, Player defender, IConquerable village) {
+  public Battle(Player attacker, Player defender
+//		  , IConquerable village
+		  ) {
     this.attacker = attacker;
     this.defender = defender;
     this.village = village;

@@ -38,26 +38,31 @@ public class GlobalMap extends Terrain {
 
   @Override
   public boolean moveTop(Object currentPlayer) {
-    return this.move(0, 1, currentPlayer);
-  }
-
-  @Override
-  public boolean moveBottom(Object currentPlayer) {
     return this.move(0, -1, currentPlayer);
   }
 
   @Override
+  public boolean moveBottom(Object currentPlayer) {
+    return this.move(0, 1, currentPlayer);
+  }
+
+  @Override
   protected boolean move(int col, int row, Object currentPlayer) {
+    printMap();
     Position playerPosition = this.map.entrySet().stream()
         .filter(t -> t.getValue().equals(currentPlayer)).findFirst().get()
         .getKey();
     if (isInRange(playerPosition.getX() + col, playerPosition.getY() + row)) {
-      this.map.put(playerPosition, new EmptyElement());
-      Position newPlayerPosition = new Position(playerPosition.getX() + col,
-          playerPosition.getY() + row);
-      this.map.put(newPlayerPosition, currentPlayer);
-      return true;
-    }
+      Position pos = new Position(0,0);
+      Object TerrainPiece  = this.map.get(pos);
+       // System.out.println(TerrainPiece.getClass());
+         
+          this.map.put(playerPosition, new EmptyElement());
+          Position newPlayerPosition = new Position(playerPosition.getX() + col,
+              playerPosition.getY() + row);
+          this.map.put(newPlayerPosition, currentPlayer);
+          return true;
+        }
     return false;
   }
 

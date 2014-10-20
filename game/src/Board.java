@@ -51,9 +51,12 @@ public class Board extends JPanel implements ActionListener {
 		this.map = TerrainFactory.Create(attacker, defender, GlobalMap.id);
 		turns = 5;
 		 map.setObjectOnMap(new Position(0,0),attacker);
-		 map.setObjectOnMap(new Position(0,0),attacker);
+		 map.setObjectOnMap(new Position(25,15),defender);
 		 
 		
+
+	
+
 		for (int col = 0; col < 25; col++) {
 			for (int row = 0; row < 15; row++) {
 				Position currentPos = new Position(col,row);
@@ -61,6 +64,7 @@ public class Board extends JPanel implements ActionListener {
 				map.setObjectOnMap(currentPos,generateObj(currentObj));
 			}
 				}
+
 		
 		setLayout(null);
 		addKeyListener(new TAdapter());
@@ -130,6 +134,7 @@ public class Board extends JPanel implements ActionListener {
 		    	        calculateTurns();
 	    	        }
 	    	    }
+	    	    
         	}
         	else {
         		if(keyEvent.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -157,6 +162,11 @@ public class Board extends JPanel implements ActionListener {
 	    	        }
 	    	    }
         	}
+        	if(keyEvent.getKeyCode() == KeyEvent.VK_A) {
+    	        if(map.moveBottom(currentPlayer)){
+    	        	new Battle(attacker, defender);
+    	        }
+    	    }
     	}
     }
 	
@@ -232,7 +242,7 @@ public class Board extends JPanel implements ActionListener {
 		case 'g':
 			return new Gold();
 		case 't':
-			return new EmptyElement();
+			return new Grass();
 		}
 		throw new IllegalArgumentException("The object type " + ch
 				+ " is not recognized.");
