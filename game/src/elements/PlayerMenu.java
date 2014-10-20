@@ -3,6 +3,7 @@ package elements;
 import java.util.HashMap;
 
 import characters.Player;
+import units.Catapult;
 import units.CrossbowArcher;
 import units.Griffin;
 import units.LongbowArcher;
@@ -21,6 +22,7 @@ public class PlayerMenu {
 		items.put(Pikeman.ID, 300);
 		items.put(Swordsman.ID,400);
 		items.put(CrossbowArcher.ID,700);
+		items.put(Catapult.ID, 2500);
 		
 	}
 	
