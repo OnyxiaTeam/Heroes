@@ -9,8 +9,8 @@ import elements.IElements;
 public abstract class Terrain {
 		  
   protected HashMap<Position, Object> map = new HashMap<Position, Object>();
-  public static final int MAP_X = 25;
-  public static final int MAP_Y = 15;
+  public static final int MAP_C = 24;
+  public static final int MAP_R = 14;
 
   public Terrain(Player p1, Player p2) {
 
@@ -35,6 +35,8 @@ public abstract class Terrain {
     }
    }
   public boolean isInRange(int col, int row) {
+    System.out.println("col > " + col);
+    System.out.println("row > " + row);
     if (isInCol(col) && isInRow(row)) {
       return true;
     } else {
@@ -44,7 +46,7 @@ public abstract class Terrain {
 
   public boolean isInCol(int col) {
 
-    if (col >= 0 && col <= Terrain.MAP_X) {
+    if (col >= 0 && col <= Terrain.MAP_C) {
       return true;
     } else {
       return false;
@@ -54,7 +56,7 @@ public abstract class Terrain {
 
   public boolean isInRow(int row) {
 
-    if (row >= 0 && row <= Terrain.MAP_Y) {
+    if (row >= 0 && row <= Terrain.MAP_R) {
       return true;
     } else {
       return false;

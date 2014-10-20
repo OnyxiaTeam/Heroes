@@ -51,7 +51,7 @@ public class Board extends JPanel implements ActionListener {
 		this.map = TerrainFactory.Create(attacker, defender, GlobalMap.id);
 		turns = 5;
 		 map.setObjectOnMap(new Position(0,0),attacker);
-		 map.setObjectOnMap(new Position(25,15),defender);
+		 map.setObjectOnMap(new Position(14,24),defender);
 		 
 		
 
@@ -173,7 +173,7 @@ public class Board extends JPanel implements ActionListener {
 	//PAINTING BACKGROUND
 	@Override
 	public void paintComponent(Graphics g) {
-		for (int col = 0; col < 25; col++) {
+		for (int col = 0; col < 25; col++) {  
 			for (int row = 0; row < 15; row++) {
 				//draw background
 				g.drawImage(new ImageIcon("images/o-terrain.png").getImage(), col*SCALE,row*SCALE, null);

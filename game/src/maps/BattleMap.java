@@ -47,19 +47,24 @@ public class BattleMap extends Terrain {
         .filter(t -> t.getValue().equals(currentPlayer)).findFirst().get()
         .getKey();
     if (isInRange(playerPosition.getX() + col, playerPosition.getY() + row)) {
-      Position pos = new Position(playerPosition.getX()+col, playerPosition.getY()+row);
-      Object TerrainPiece  = this.map.get(pos);
-        
-        if(TerrainPiece instanceof EmptyElement){
-          
-          this.map.put(playerPosition, new EmptyElement());
-          Position newPlayerPosition = new Position(playerPosition.getX() + col,
-              playerPosition.getY() + row);
-          this.map.put(newPlayerPosition, currentPlayer);
-          return true;
-        }else{
-          return false;
-        }
+      System.out.println("Current player position x :" + playerPosition.getX());
+      System.out.println("New player position x :" + playerPosition.getX() + row);
+      System.out.println("Current player position y :" + playerPosition.getY());
+      System.out.println("New player position y :" + playerPosition.getY() + col);
+      
+//      Position pos = new Position(playerPosition.getX()+col, playerPosition.getY()+row);
+//      Object TerrainPiece  = this.map.get(pos);
+//        
+//        if(TerrainPiece instanceof EmptyElement){
+//          
+//          this.map.put(playerPosition, new EmptyElement());
+//          Position newPlayerPosition = new Position(playerPosition.getX() + col,
+//              playerPosition.getY() + row);
+//          this.map.put(newPlayerPosition, currentPlayer);
+//          return true;
+//        }else{
+//          return false;
+//        }
     }
     return false;
   }
