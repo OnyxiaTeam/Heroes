@@ -37,6 +37,8 @@ public class Map {
 		} catch (IOException e) {
 			System.out.println("Not enough lines be batka!");
 		}
+		System.out.println(map.toString());
+		
 		return map;
 	}
 	

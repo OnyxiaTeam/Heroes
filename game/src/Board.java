@@ -98,7 +98,7 @@ public class Board extends JPanel implements ActionListener {
 		add(endOfTurnButton);
 		
 		//turns label
-		turnsLabel.setText("<html><span style='font-size:20px;'>"+"Turns Left:"+turns+"</span></html>");
+		turnsLabel.setText("<html><span style='font-size:20px;color:#cceecc;'>"+"Turns Left:"+turns+"</span></html>");
 		turnsLabel.setBounds(1000, 0, 200, 100);
 		add(turnsLabel);
 		
@@ -216,7 +216,7 @@ public class Board extends JPanel implements ActionListener {
 			}
 			turns=5;
 		}
-        turnsLabel.setText("<html><span style='font-size:20px'>"+"Turns Left:"+turns+"</span></html>");
+        turnsLabel.setText("<html><span style='font-size:20px;color:#cceecc'>"+"Turns Left:"+turns+"</span></html>");
 	}
 	
 	public Object generateObj(char ch){

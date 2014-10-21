@@ -9,6 +9,7 @@ import units.IWarrior;
 import characters.Player;
 import elements.EmptyElement;
 import elements.IElements;
+import elements.Village;
 
 public class GlobalMap extends Terrain {
 
@@ -58,7 +59,7 @@ public class GlobalMap extends Terrain {
  //   System.out.println("----------");
   //  System.out.println(col + " - " + row);
   //  System.out.println("----------");
-    // printMap();
+     printMap();
     Position playerPosition = this.map.entrySet().stream()
         .filter(t -> t.getValue().equals(currentPlayer)).findFirst().get()
         .getKey();
@@ -79,7 +80,7 @@ public class GlobalMap extends Terrain {
 
       Object TerrainPiece = this.map.get(pos);
       System.out.println(TerrainPiece.getClass());
-     if (TerrainPiece instanceof EmptyElement) {
+     if (TerrainPiece instanceof EmptyElement || TerrainPiece instanceof  Village) {
      
        this.map.remove(playerPosition);
        this.map.put(playerPosition, new EmptyElement());
