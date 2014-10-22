@@ -30,8 +30,9 @@ public class BuyMenu extends MenuAbstract {
 		System.out
 				.println("Welcome to the buy menu\n To buy an item enter 'buy'.\n "
 						+ "To get menu list enter 'list'\n"
-						+ "To exit - enter 'stop'");
-		while (!cmd.equals("stop")) {
+						+ "To go to Skills menu, enter 'skills' "
+						+ "To exit - enter 'exit'\n");
+		while (!cmd.equals("exit")) {
 			cmd = sc.nextLine();
 			if (cmd.equals("buy")) {
 				System.out.println("Enter unit id (the one in the brackets)");
@@ -44,6 +45,10 @@ public class BuyMenu extends MenuAbstract {
 			
 			if (cmd.equals("list")) {
 				System.out.println(this.getMenu());
+			}
+			
+			if (cmd.equals("skills")) {
+				new SkillsMenu(this.getPlayer());
 			}
 		}
 	}
@@ -63,15 +68,15 @@ public class BuyMenu extends MenuAbstract {
 		String response = "";
 
 		response += "Griffin [" + Griffin.ID + "] ===> "
-				+ items.get(Griffin.ID) + " Gold";
+				+ items.get(Griffin.ID) + " Gold\n";
 		response += "Longbow Archer [" + LongbowArcher.ID + "] ===> "
-				+ items.get(LongbowArcher.ID) + " Gold";
+				+ items.get(LongbowArcher.ID) + " Gold\n";
 		response += "Pikeman [" + Pikeman.ID + "] ===> "
-				+ items.get(Pikeman.ID) + " Gold";
+				+ items.get(Pikeman.ID) + " Gold\n";
 		response += "Sowrdsman [" + Swordsman.ID + "] ===> "
-				+ items.get(Swordsman.ID) + " Gold";
+				+ items.get(Swordsman.ID) + " Gold\n";
 		response += "Crossbow Archer [" + CrossbowArcher.ID + "] ===> "
-				+ items.get(CrossbowArcher.ID) + " Gold";
+				+ items.get(CrossbowArcher.ID) + " Gold\n";
 
 		return response;
 	}

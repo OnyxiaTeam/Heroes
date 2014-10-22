@@ -88,6 +88,8 @@ public abstract class Units implements IWarrior {
 				this.getOwner().killUnit(this);
 				System.out.println("All units from this type has died");
 			}
+			
+			this.getOwner().addDeadUnit(this.getId(), unitsToDie);
 		}
 		
 		System.out.println(this.getOwner().getName() + " left with " + this.getAmount() + " units");

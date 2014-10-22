@@ -1,6 +1,8 @@
 package Battle;
 import java.util.Scanner;
 
+import skills.Offensive;
+import skills.SkillsAbstract;
 import units.Units;
 import elements.characters.Player;
 import elements.villages.IConquerable;
@@ -92,6 +94,11 @@ public class Battle {
 	}
 
 	public void hit(Units attackingUnit, Units defendingUnit) {
+		defendingUnit.getOwner().getSkills()
+			.stream()
+			.filter(s -> (s instanceof Offensive))
+			.forEach(s -> s.cast(attackingUnit.getOwner()));
+		
 		attackingUnit.hit(defendingUnit);
 
 		this.checkResult();

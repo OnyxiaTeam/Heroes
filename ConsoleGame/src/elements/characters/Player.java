@@ -1,12 +1,14 @@
 package elements.characters;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import skills.SkillsAbstract;
 import units.Units;
 import elements.Gold;
 import elements.ICollectable;
 import elements.IElement;
-import elements.ICollectable;
 import elements.villages.IConquerable;
 
 public class Player implements IElement {
@@ -14,12 +16,15 @@ public class Player implements IElement {
 	private ArrayList<ICollectable> resources = new ArrayList<ICollectable>();
 	private ArrayList<IConquerable> villages = new ArrayList<IConquerable>();
 	private ArrayList<Units> units = new ArrayList<Units>();
+	
+	private HashMap<Integer, Integer> deadUnits = new HashMap<Integer, Integer>();
+	private ArrayList<SkillsAbstract> skills = new ArrayList<SkillsAbstract>();
 
 	private int turns;
 	private String name;
 	public static final int INITIAL_TURNS = 5;
 	public static final int INITIAL_VILLAGES = 6;
-	public static final int INITIAL_GOLD = 1000;
+	public static final int INITIAL_GOLD = 19000;
 
 	public Player(ICollectable gold) {
 		this.resources.add(gold);
@@ -79,7 +84,7 @@ public class Player implements IElement {
 	}
 
 	public boolean hasVillages() {
-		return this.getVillages().isEmpty();
+		return this.getVillages().size() > 0;
 	}
 
 	public int getTurns() {
@@ -182,5 +187,38 @@ public class Player implements IElement {
 		}
 		
 		return response;
+	}
+	
+	public void addDeadUnit(int unitId, int amount) {
+		Integer count = this.deadUnits.get(unitId);
+		if (count == null) {
+			this.deadUnits.put(unitId, amount);
+		} else {
+			this.deadUnits.put(unitId, amount + count);
+		}
+	}
+	
+	public HashMap<Integer, Integer> getDeadUnits() {
+		return this.deadUnits;
+	}
+	
+	public void resurectUnits(int percentage) {
+		for (Map.Entry<Integer, Integer> es : this.getDeadUnits().entrySet()) {
+			if (this.getUnitById(es.getKey()) != null) {
+				Units unit = this.getUnitById(es.getKey());
+				int cnt = (int)(es.getValue() * (percentage / 100));
+				
+				unit.increaseAmount(cnt);
+				this.deadUnits.put(es.getKey(), (es.getValue()-cnt));
+			}
+		}
+	}
+	
+	public ArrayList<SkillsAbstract> getSkills() {
+		return this.skills;
+	}
+	
+	public void addSkill(SkillsAbstract skill) {
+		this.skills.add(skill);
 	}
 }

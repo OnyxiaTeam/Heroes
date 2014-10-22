@@ -10,6 +10,7 @@ import elements.IElement;
 import elements.Obstacle;
 import elements.characters.Player;
 import elements.villages.IConquerable;
+import elements.villages.Village;
 
 public abstract class MapAbstract {
 
@@ -153,17 +154,13 @@ public abstract class MapAbstract {
 			}
 
 			String left = this.terrain.containsKey(leftPosition) ? this
-					.getElement(this.terrain.get(leftPosition).getClass()
-							.toString()) : "Wall";
+					.getElement(this.terrain.get(leftPosition), currentPlayer) : "Wall";
 			String right = this.terrain.containsKey(rightPosition) ? this
-					.getElement(this.terrain.get(rightPosition).getClass()
-							.toString()) : "Wall";
+					.getElement(this.terrain.get(rightPosition), currentPlayer) : "Wall";
 			String up = this.terrain.containsKey(upperPosition) ? this
-					.getElement(this.terrain.get(upperPosition).getClass()
-							.toString()) : "Wall";
+					.getElement(this.terrain.get(upperPosition), currentPlayer) : "Wall";
 			String down = this.terrain.containsKey(bottomPosition) ? this
-					.getElement(this.terrain.get(bottomPosition).getClass()
-							.toString()) : "Wall";
+					.getElement(this.terrain.get(bottomPosition), currentPlayer) : "Wall";
 
 			((Player) currentPlayer).decrementTurn();
 
@@ -176,16 +173,36 @@ public abstract class MapAbstract {
 		return "Out of map range";
 	}
 
-	private String getElement(String elementClass) {
-		return elementClass.split("\\.")[1];
+	private String getElement(IElement element, IElement currentPlayer) {
+		String[] elements = element.getClass().toString().split("\\.");
+		String el = elements[(elements.length - 1)];
+		
+		String additionalInfo = "";
+		
+		if (element instanceof Village) {
+			Village village = (Village) element;
+			Player player = (Player) currentPlayer;
+			
+			if (village.getOwner().equals(player)) {
+				additionalInfo = " (yours)"; 
+			} else {
+				additionalInfo = " (hostile)";
+			}
+		}
+		
+		return el + additionalInfo;
 	}
 
-	public void print() {
+	public String getMapTable(Player currentPlayer) {
+		String response = "";
+		
 		for (Map.Entry<Position, IElement> es : this.terrain.entrySet()) {
-			System.out.println("X: " + es.getKey().getX() + " _ Y: "
-					+ es.getKey().getY());
-			System.out.println(es.getValue().getClass());
+			response += "[" + es.getKey().getX() + ":"
+					+ es.getKey().getY() + "] ==>  ";
+			response += this.getElement(es.getValue(), currentPlayer) + "\n";
 		}
+		
+		return response;
 	}
 
 }

@@ -29,7 +29,7 @@ public class Starter {
 
 		this.p1.setName("Player 1");
 		this.p2.setName("Player 2");
-		
+
 		this.currentPlayer = p1;
 
 		this.map = MapFactory.create(p1, p2, GlobalMap.ID);
@@ -47,12 +47,25 @@ public class Starter {
 		Scanner sc = new Scanner(System.in);
 		Starter inst = new Starter();
 		inst.render();
-		
-		System.out.println("Welcome to the game.\n"
-				+ "You are now on the global map and the game is waiting for your commands\n"
-				+ "Allowed commands: 'move right', 'move left', 'move up', 'move down'\n");
 
-		while (true) {
+		System.out
+				.println("Welcome to the game.\n"
+						+ "You are now on the global map and the game is waiting for your commands\n"
+						+ "Allowed commands: 'move right', 'move left', 'move up', 'move down', 'map'\n");
+
+		UnitsFactory.create(inst.p2, 10, 1);
+		
+		while (!inst.isFinished()) {
+			System.out.print("You have : ");
+			inst.currentPlayer
+					.getResources()
+					.stream()
+					.forEach(
+							t -> System.out.println(t.getAmount()
+									+ " "
+									+ inst.getResourceType(t.getClass()
+											.toString())));
+
 			Command cmd = new Command(inst, sc.nextLine());
 			Response resp = cmd.execute();
 			System.out.println(resp.getMessage());
@@ -62,8 +75,7 @@ public class Starter {
 
 			inst.changePlayer();
 
-			inst.currentPlayer.getResources().stream()
-					.forEach(t -> System.out.println(t.getAmount()));
+			inst.finishCycle();
 		}
 	}
 
@@ -81,22 +93,22 @@ public class Starter {
 
 	public IElement getParsedObject(char ch) {
 		switch (ch) {
-		case 'a':
-			return this.p1;
-		case 'e':
-			return new EmptyElement();
-		case 't':
-			return new Obstacle();
-		case 'g':
-			return new Gold((int) (Math.random() * 1000));
-		case 'b':
-			return this.p2;
-		case 'v':
-			return (IElement) this.p1.getNextVillage();
-		case 'f':
-			return (IElement) this.p2.getNextVillage();
-		default:
-			throw new IllegalArgumentException();
+			case 'a':
+				return this.p1;
+			case 'e':
+				return new EmptyElement();
+			case 't':
+				return new Obstacle();
+			case 'g':
+				return new Gold((int) (Math.random() * 1000));
+			case 'b':
+				return this.p2;
+			case 'v':
+				return (IElement) this.p1.getNextVillage();
+			case 'f':
+				return (IElement) this.p2.getNextVillage();
+			default:
+				throw new IllegalArgumentException();
 		}
 	}
 
@@ -112,5 +124,26 @@ public class Starter {
 				System.out.println("It's Player 1's turn");
 			}
 		}
+	}
+
+	public boolean isFinished() {
+		return !this.p1.hasVillages() || !this.p2.hasVillages();
+	}
+
+	public void finishCycle() {
+		if (!this.isFinished()) return;
+		
+		String winner = "";
+		if (!this.p1.hasVillages()) {
+			winner = this.p2.getName();
+		} else if (!this.p2.hasVillages()) {
+			winner = this.p1.getName();
+		}
+
+		System.out.println(winner + " has win the game");
+	}
+
+	public String getResourceType(String resourceClass) {
+		return resourceClass.split("\\.")[1];
 	}
 }

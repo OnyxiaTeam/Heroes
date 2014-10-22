@@ -13,4 +13,8 @@ public abstract class MenuAbstract {
 	public Player getPlayer() {
 		return this.player;
 	}
+	
+	public abstract String getMenu();
+	
+	public abstract void buy(int id, int amount);
 }

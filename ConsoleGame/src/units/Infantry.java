@@ -1,5 +1,6 @@
 package units;
 
+import skills.Offensive;
 import elements.characters.Player;
 
 public abstract class Infantry extends Units {
@@ -12,6 +13,11 @@ public abstract class Infantry extends Units {
 	}
 
 	public void hit(Units unit) {
+		this.getOwner().getSkills()
+			.stream()
+			.filter(s -> (s instanceof Offensive))
+			.forEach(s -> s.cast(unit.getOwner()));
+		
 		double chance = Math.random();
 
 		int impact = this.getAttack() * this.getAmount();
